@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="306d70a178a34cd79bf1e3f844b6c9cc" Name="Diagram1" ZoomLevel="87">
+        <EntityTypeShape EntityType="ByteBridgeDbModel.BloodBankStockTable" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.BloodBankTable" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.BloodGroupsTable" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.CityTable" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.DonorTable" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.GenderTable" Width="1.5" PointX="5.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.HospitalTable" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.RequestTable" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.RequestTypeTAble" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.SeekerTable" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockTable_BloodBankTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockTable_BloodGroupsTable1" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankTable_CityTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_DonorTable_BloodGroupsTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_SeekerTable_BloodGroupsTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_DonorTable_CityTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_HospitalTable_CityTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_SeekerTable_CityTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_SeekerTable_GenderTable" ManuallyRouted="false" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_RequestTable_RequestTypeTAble" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.AccountStatusTable" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.UserTable" Width="1.5" PointX="11" PointY="10" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.UserTypeTable" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_UserTable_AccountStatusTable" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__BloodBank__UserI__72C60C4A" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__DonorTabl__UserI__73BA3083" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__HospitalT__UserI__74AE54BC" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__SeekerTab__UserI__75A278F5" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_UserTable_UserTypeTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
