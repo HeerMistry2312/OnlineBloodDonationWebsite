@@ -1,35 +1,37 @@
 ﻿@model BloodDonationApp.Models.RequestTypeMV
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Request Type";
 }
 
-<h2>Create</h2>
+<div class="col-md-6">
+    <div class="contact-form-block">
+        <h2 class="contact-title">Add New Request Type</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>RequestTypeTAble</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequestType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                Enter Request Type Name:
                 @Html.EditorFor(model => model.RequestType, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RequestType, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
             </div>
-        </div>
+
+            <div class="form-group">
+
+                <input type="submit" style="float:right;" value="Create" class="btn btn-theme" />
+                @Html.ActionLink("Back", "AllRequestTyes", null, new { @class = "btn btn-theme-invert" })
+
+            </div>
+
+        }
+
+
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+

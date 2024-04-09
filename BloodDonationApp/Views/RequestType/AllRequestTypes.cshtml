@@ -1,33 +1,37 @@
 ﻿@model IEnumerable<BloodDonationApp.Models.RequestTypeMV>
 
 @{
-    ViewBag.Title = "AllRequestTypes";
+    ViewBag.Title = "All Request Types";
 }
 
-<h2>AllRequestTypes</h2>
+<div class="col-md-8">
+    <div class="contact-form-block">
+        <h2 class="contact-title">All Request Types</h2>
+        <p>
+            @Html.ActionLink("New Request Type", "Create", null, new { @class = "btn btn-theme" })
+        </p>
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Request Types
+                </th>
+                <th></th>
+            </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestType)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestType)
+                    </td>
+                    <td class="text-right">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.RequestTypeID }, new { @class = "btn btn-primary" })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestType)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RequestTypeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RequestTypeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RequestTypeID })
-        </td>
-    </tr>
-}
+                        @Html.ActionLink("Delete", "Delete", new { id = item.RequestTypeID }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+        </div>
+    </div>
