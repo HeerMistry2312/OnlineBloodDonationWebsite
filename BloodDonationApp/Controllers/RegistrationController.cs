@@ -9,6 +9,7 @@ namespace BloodDonationApp.Controllers
 {
     public class RegistrationController : Controller
     {
+
         public ActionResult UserRegistration()
         {
             var registration = new RegistrationMV();

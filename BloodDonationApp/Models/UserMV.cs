@@ -15,5 +15,6 @@ namespace BloodDonationApp.Models
         public string AccountStatus { get; set; }
         public int UserTypeID { get; set; }
         public string UserType { get; set; }
+        public string Description { get; set; }
     }
 }

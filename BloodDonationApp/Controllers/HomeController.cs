@@ -1,14 +1,16 @@
-﻿using System;
+﻿using BloodDonationApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DatabaseLayer;
 
 namespace BloodDonationApp.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        ByteBridgeDbEntities DB = new ByteBridgeDbEntities();
         public ActionResult Index()
         {
             return View();
@@ -16,7 +18,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult MainHome()
         {
-            return View();
+            var registration = new RegistrationMV();
+            ViewBag.UserTypeID = new SelectList(DB.UserTypeTables.Where(ut=>ut.UserTypeID > 1).ToList(), "UserTypeID", "UserType", "0");
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", "0");
+            return View(registration);
         }
     }
 }

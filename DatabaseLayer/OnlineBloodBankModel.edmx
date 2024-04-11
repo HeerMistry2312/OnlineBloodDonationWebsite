@@ -130,6 +130,7 @@
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="AccountStatusID" Type="int" Nullable="false" />
           <Property Name="UserTypeID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <EntityType Name="UserTypeTable">
           <Key>
@@ -768,6 +769,7 @@
           <NavigationProperty Name="HospitalTables" Relationship="ByteBridgeDbModel.FK__HospitalT__UserI__74AE54BC" FromRole="UserTable" ToRole="HospitalTable" />
           <NavigationProperty Name="SeekerTables" Relationship="ByteBridgeDbModel.FK__SeekerTab__UserI__75A278F5" FromRole="UserTable" ToRole="SeekerTable" />
           <NavigationProperty Name="UserTypeTable" Relationship="ByteBridgeDbModel.FK_UserTable_UserTypeTable" FromRole="UserTable" ToRole="UserTypeTable" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserTypeTable">
           <Key>
@@ -984,6 +986,7 @@
           <EntitySetMapping Name="UserTables">
             <EntityTypeMapping TypeName="ByteBridgeDbModel.UserTable">
               <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="AccountStatusID" ColumnName="AccountStatusID" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
