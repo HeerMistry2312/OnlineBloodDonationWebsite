@@ -232,14 +232,21 @@
     <Compile Include="Controllers\BloodGroupsController.cs" />
     <Compile Include="Controllers\CityTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RequestTypeController.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountStatusMV.cs" />
+    <Compile Include="Models\BloodBankMV.cs" />
     <Compile Include="Models\BloodGroupsMV.cs" />
+    <Compile Include="Models\DonorMV.cs" />
+    <Compile Include="Models\HospitalMV.cs" />
+    <Compile Include="Models\RegistrationMV.cs" />
     <Compile Include="Models\RequestTypeMV.cs" />
+    <Compile Include="Models\SeekerMV.cs" />
+    <Compile Include="Models\UserMV.cs" />
     <Compile Include="Models\UserTypeMV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -304,6 +311,7 @@
     <Content Include="Views\AccountStatus\Create.cshtml" />
     <Content Include="Views\AccountStatus\Edit.cshtml" />
     <Content Include="Views\AccountStatus\Delete.cshtml" />
+    <Content Include="Views\Registration\UserRegistration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
