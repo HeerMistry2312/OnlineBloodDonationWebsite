@@ -57,7 +57,7 @@ namespace BloodDonationApp.Controllers
             }
             var requesttypemv = new RequestTypeMV();
             requesttypemv.RequestTypeID = requesttype.RequestTypeID;
-            requesttypemv.RequestType = requesttypemv.RequestType;
+            requesttypemv.RequestType = requesttype.RequestType;
             return View(requesttypemv);
         }
         [HttpPost]
@@ -88,7 +88,7 @@ namespace BloodDonationApp.Controllers
             }
             var requesttypemv = new RequestTypeMV();
             requesttypemv.RequestTypeID = requesttype.RequestTypeID;
-            requesttypemv.RequestType = requesttypemv.RequestType;
+            requesttypemv.RequestType = requesttype.RequestType;
             return View(requesttypemv);
         }
         [HttpPost, ActionName("Delete")]
