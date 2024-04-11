@@ -228,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BloodGroupsController.cs" />
     <Compile Include="Controllers\CityTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RequestTypeController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BloodGroupsMV.cs" />
     <Compile Include="Models\RequestTypeMV.cs" />
     <Compile Include="Models\UserTypeMV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,6 +294,10 @@
     <Content Include="Views\UserType\Create.cshtml" />
     <Content Include="Views\UserType\Edit.cshtml" />
     <Content Include="Views\UserType\Delete.cshtml" />
+    <Content Include="Views\BloodGroups\AllBloodGroups.cshtml" />
+    <Content Include="Views\BloodGroups\Create.cshtml" />
+    <Content Include="Views\BloodGroups\Edit.cshtml" />
+    <Content Include="Views\BloodGroups\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -301,6 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DatabaseLayer\DatabaseLayer.csproj">
