@@ -38,12 +38,20 @@ namespace BloodDonationApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var requestTypeTAble = new RequestTypeTAble();
+                var checkRequestType = DB.RequestTypeTAbles.Where(b => b.RequestType == requestTypeMV.RequestType).FirstOrDefault();
+                if (checkRequestType == null)
+                {
+                    var requestTypeTAble = new RequestTypeTAble();
                 requestTypeTAble.RequestTypeID = requestTypeMV.RequestTypeID;
                 requestTypeTAble.RequestType = requestTypeMV.RequestType;
                 DB.RequestTypeTAbles.Add(requestTypeTAble);
                 DB.SaveChanges();
                 return RedirectToAction("AllRequestTypes");
+                }
+                else
+                {
+                    ModelState.AddModelError("RequestType", "Already Exist!");
+                }
             }
             return View(requestTypeMV);
         }
@@ -66,12 +74,21 @@ namespace BloodDonationApp.Controllers
         {
             if(ModelState.IsValid)
             {
-                var requestTypeTAble = new RequestTypeTAble();
+                var checkRequestType = DB.RequestTypeTAbles.Where(b => b.RequestType == requestTypeMV.RequestType && b.RequestTypeID != requestTypeMV.RequestTypeID).FirstOrDefault();
+                if (checkRequestType == null)
+                {
+                    var requestTypeTAble = new RequestTypeTAble();
                 requestTypeTAble.RequestTypeID = requestTypeMV.RequestTypeID;
                 requestTypeTAble.RequestType = requestTypeMV.RequestType;
                 DB.Entry(requestTypeTAble).State = EntityState.Modified;
                 DB.SaveChanges();
                 return RedirectToAction("AllRequestTypes");
+                }
+                else
+                {
+                    ModelState.AddModelError("RequestType", "Already Exist!");
+                }
+
             }
             return View(requestTypeMV);
         }

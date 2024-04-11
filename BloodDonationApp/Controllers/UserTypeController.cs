@@ -39,12 +39,20 @@ namespace BloodDonationApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userTypeTable = new UserTypeTable();
+                var checkUserType = DB.UserTypeTables.Where(b => b.UserType == userTypeMV.UserType).FirstOrDefault();
+                if (checkUserType == null)
+                {
+                    var userTypeTable = new UserTypeTable();
                 userTypeTable.UserTypeID = userTypeMV.UserTypeID;
                 userTypeTable.UserType = userTypeMV.UserType;
                 DB.UserTypeTables.Add(userTypeTable);
                 DB.SaveChanges();
                 return RedirectToAction("AllUserTypes");
+                }
+                else
+                {
+                    ModelState.AddModelError("UserType", "Already Exist!");
+                }
             }
             return View(userTypeMV);
         }
@@ -68,12 +76,20 @@ namespace BloodDonationApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userTypeTable = new UserTypeTable();
+                var checkUserType = DB.UserTypeTables.Where(b => b.UserType == userTypeMV.UserType && b.UserTypeID != userTypeMV.UserTypeID).FirstOrDefault();
+                if (checkUserType == null)
+                {
+                    var userTypeTable = new UserTypeTable();
                 userTypeTable.UserTypeID = userTypeMV.UserTypeID;
                 userTypeTable.UserType = userTypeMV.UserType;
                 DB.Entry(userTypeTable).State = EntityState.Modified;
                 DB.SaveChanges();
                 return RedirectToAction("AllUserTypes");
+                }
+                else
+                {
+                    ModelState.AddModelError("UserType", "Already Exist!");
+                }
             }
             return View(userTypeMV);
         }
