@@ -18,6 +18,8 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult MainHome()
         {
+            var message = ViewData["Message"] == null ? "Welcome To ByteBridege..." : ViewData["Message"];
+            ViewData["Message"] = message;
             var registration = new RegistrationMV();
             ViewBag.UserTypeID = new SelectList(DB.UserTypeTables.Where(ut=>ut.UserTypeID > 1).ToList(), "UserTypeID", "UserType", "0");
             ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", "0");
