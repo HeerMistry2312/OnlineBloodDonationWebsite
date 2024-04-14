@@ -160,6 +160,7 @@
     <Content Include="Content\Template\images\home_1_slider_1.jpg" />
     <Content Include="Content\Template\images\home_1_slider_2.jpg" />
     <Content Include="Content\Template\images\loader.gif" />
+    <Content Include="Content\Template\images\login_background.jpg" />
     <Content Include="Content\Template\images\logo-footer.png" />
     <Content Include="Content\Template\images\logo.png" />
     <Content Include="Content\Template\images\logo_1.jpg" />
@@ -319,6 +320,7 @@
     <Content Include="Views\Registration\SeekerUser.cshtml" />
     <Content Include="Views\Accounts\AllNewUserRequest.cshtml" />
     <Content Include="Views\Accounts\UserDetails.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
