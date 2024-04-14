@@ -27,11 +27,19 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult UserApproved(int? id)
         {
-            return View();
+            var user = DB.UserTables.Find(id);
+            user.AccountStatusID = 3;
+            DB.Entry(user).State =System.Data.Entity.EntityState.Modified;
+            DB.SaveChanges();
+            return RedirectToAction("AllNewUserRequest");
         }
         public ActionResult UserRejected(int? id)
         {
-            return View();
+            var user = DB.UserTables.Find(id);
+            user.AccountStatusID = 4;
+            DB.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            DB.SaveChanges();
+            return RedirectToAction("AllNewUserRequest");
         }
     }
 }
