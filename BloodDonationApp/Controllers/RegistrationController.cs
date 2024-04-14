@@ -235,15 +235,70 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult SeekerUser()
         {
-           ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationmv.CityID);
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationmv.CityID);
+            ViewBag.BloodGroupID = new SelectList(DB.BloodGroupsTables.ToList(), "BloodGroupID", "BloodGroup", "0");
+            ViewBag.GenderID = new SelectList(DB.GenderTables.ToList(), "GenderID", "Gender", "0");
             return View(registrationmv);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SeekerUser(RegistrationMV registrationMV)
         {
-            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationmv.CityID);
-            return View();
-        }
+            if (ModelState.IsValid)
+            {
+                var checktitle = DB.SeekerTables.Where(h => h.FullName == registrationMV.Seeker.FullName.Trim() && h.CNIC == registrationMV.Seeker.CNIC).FirstOrDefault();
+                if (checktitle == null)
+                {
+                    using (var transaction = DB.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var user = new UserTable();
+                            user.UserName = registrationMV.User.UserName;
+                            user.Password = registrationMV.User.Password;
+                            user.EmailAddress = registrationMV.User.EmailAddress;
+                            user.AccountStatusID = 1;
+                            user.UserTypeID = registrationMV.UserTypeID;
+                            user.Description = registrationMV.User.Description;
+                            DB.UserTables.Add(user);
+                            DB.SaveChanges();
+
+
+                            var seeker = new SeekerTable();
+                            seeker.FullName = registrationMV.Seeker.FullName;
+                            seeker.Age = registrationMV.Seeker.Age;
+                            seeker.BloodGroupID = registrationMV.BloodGroupID;
+                            seeker.ContactNo = registrationMV.Seeker.ContactNo;
+                            seeker.CNIC = registrationMV.Seeker.CNIC;
+                            seeker.GenderID = registrationMV.GenderID;
+                            seeker.Address = registrationMV.Seeker.Address;
+                            seeker.RegistrationDate = DateTime.Now;
+                            seeker.CityID = registrationMV.CityID;
+                            seeker.UserID = user.UserID;
+                            DB.SeekerTables.Add(seeker);
+
+                            DB.SaveChanges();
+                            transaction.Commit();
+                            ViewData["Message"] = "Thanks For registration, Your Query will be Review Shortly!!!";
+                            return RedirectToAction("MainHome", "Home");
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError(string.Empty, "Please Provide Correct Information...");
+                            transaction.Rollback();
+                        }
+                    }
+
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Seeker Already Registered...");
+                }
+            }
+            ViewBag.BloodGroupID = new SelectList(DB.BloodGroupsTables.ToList(), "BloodGroupID", "BloodGroup", registrationmv.BloodGroupID);
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationMV.CityID);
+            ViewBag.GenderID = new SelectList(DB.GenderTables.ToList(), "GenderID", "Gender", registrationMV.GenderID);
+            return View(registrationMV);
     }
+}
 }

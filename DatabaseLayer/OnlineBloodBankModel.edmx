@@ -121,6 +121,7 @@
           <Property Name="GenderID" Type="int" Nullable="false" />
           <Property Name="RegistrationDate" Type="date" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="UserTable">
           <Key>
@@ -567,6 +568,7 @@
           <NavigationProperty Name="GenderTable" Relationship="Self.FK_SeekerTable_GenderTable" FromRole="SeekerTable" ToRole="GenderTable" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserTable" Relationship="ByteBridgeDbModel.FK__SeekerTab__UserI__75A278F5" FromRole="SeekerTable" ToRole="UserTable" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_BloodBankStockTable_BloodBankTable1">
           <End Role="BloodBankTable" Type="Self.BloodBankTable" Multiplicity="1" />
@@ -1002,6 +1004,7 @@
           <EntitySetMapping Name="SeekerTables">
             <EntityTypeMapping TypeName="ByteBridgeDbModel.SeekerTable">
               <MappingFragment StoreEntitySet="SeekerTable">
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SeekerID" ColumnName="SeekerID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
