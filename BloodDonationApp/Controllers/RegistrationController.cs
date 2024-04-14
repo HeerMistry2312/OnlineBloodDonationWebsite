@@ -178,8 +178,59 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BloodBankUser(RegistrationMV registrationMV)
         {
-            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationmv.CityID);
-            return View();
+            if (ModelState.IsValid)
+            {
+                var checktitle = DB.BloodBankTables.Where(h => h.BloodBankName == registrationMV.BloodBank.BloodBankName.Trim() && h.PhoneNo == registrationMV.BloodBank.PhoneNo).FirstOrDefault();
+                if (checktitle == null)
+                {
+                    using (var transaction = DB.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var user = new UserTable();
+                            user.UserName = registrationMV.User.UserName;
+                            user.Password = registrationMV.User.Password;
+                            user.EmailAddress = registrationMV.User.EmailAddress;
+                            user.AccountStatusID = 1;
+                            user.UserTypeID = registrationMV.UserTypeID;
+                            user.Description = registrationMV.User.Description;
+                            DB.UserTables.Add(user);
+                            DB.SaveChanges();
+
+
+                            var bloodBank = new BloodBankTable();
+                            bloodBank.BloodBankName = registrationMV.BloodBank.BloodBankName;
+                            bloodBank.PhoneNo = registrationMV.BloodBank.PhoneNo;
+                            bloodBank.Address = registrationMV.BloodBank.Address;
+                            bloodBank.Location = registrationMV.BloodBank.Address;
+                            bloodBank.Website = registrationMV.BloodBank.Website;
+                            bloodBank.Email = registrationMV.BloodBank.Email;
+                            bloodBank.CityID = registrationMV.CityID;
+                            bloodBank.UserID = user.UserID;
+                            DB.BloodBankTables.Add(bloodBank);
+
+                            DB.SaveChanges();
+                            transaction.Commit();
+                            ViewData["Message"] = "Thanks For registration, Your Query will be Review Shortly!!!";
+                            return RedirectToAction("MainHome", "Home");
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError(string.Empty, "Please Provide Correct Information...");
+                            transaction.Rollback();
+                        }
+                    }
+
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Blood Bank Already Registered...");
+                }
+            }
+            
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationMV.CityID);
+           
+            return View(registrationMV);
         }
 
         public ActionResult SeekerUser()
