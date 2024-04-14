@@ -63,6 +63,8 @@
           <Property Name="CNIC" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CityID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" />
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="300" Nullable="false" />
         </EntityType>
         <EntityType Name="GenderTable">
           <Key>
@@ -148,6 +150,18 @@
             </Principal>
             <Dependent Role="BloodBankTable">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonorTabl__Gende__01142BA1">
+          <End Role="GenderTable" Type="Self.GenderTable" Multiplicity="1" />
+          <End Role="DonorTable" Type="Self.DonorTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderTable">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="DonorTable">
+              <PropertyRef Name="GenderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -349,6 +363,10 @@
             <End Role="UserTable" EntitySet="UserTable" />
             <End Role="BloodBankTable" EntitySet="BloodBankTable" />
           </AssociationSet>
+          <AssociationSet Name="FK__DonorTabl__Gende__01142BA1" Association="Self.FK__DonorTabl__Gende__01142BA1">
+            <End Role="GenderTable" EntitySet="GenderTable" />
+            <End Role="DonorTable" EntitySet="DonorTable" />
+          </AssociationSet>
           <AssociationSet Name="FK__DonorTabl__UserI__73BA3083" Association="Self.FK__DonorTabl__UserI__73BA3083">
             <End Role="UserTable" EntitySet="UserTable" />
             <End Role="DonorTable" EntitySet="DonorTable" />
@@ -480,6 +498,9 @@
           <NavigationProperty Name="CityTable" Relationship="Self.FK_DonorTable_CityTable" FromRole="DonorTable" ToRole="CityTable" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="UserTable" Relationship="ByteBridgeDbModel.FK__DonorTabl__UserI__73BA3083" FromRole="DonorTable" ToRole="UserTable" />
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GenderTable" Relationship="ByteBridgeDbModel.FK__DonorTabl__Gende__01142BA1" FromRole="DonorTable" ToRole="GenderTable" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="GenderTable">
           <Key>
@@ -488,6 +509,7 @@
           <Property Name="GenderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="SeekerTables" Relationship="Self.FK_SeekerTable_GenderTable" FromRole="GenderTable" ToRole="SeekerTable" />
+          <NavigationProperty Name="DonorTables" Relationship="ByteBridgeDbModel.FK__DonorTabl__Gende__01142BA1" FromRole="GenderTable" ToRole="DonorTable" />
         </EntityType>
         <EntityType Name="HospitalTable">
           <Key>
@@ -744,6 +766,10 @@
             <End Role="UserTypeTable" EntitySet="UserTypeTables" />
             <End Role="UserTable" EntitySet="UserTables" />
           </AssociationSet>
+          <AssociationSet Name="FK__DonorTabl__Gende__01142BA1" Association="ByteBridgeDbModel.FK__DonorTabl__Gende__01142BA1">
+            <End Role="GenderTable" EntitySet="GenderTables" />
+            <End Role="DonorTable" EntitySet="DonorTables" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AccountStatusTable">
           <Key>
@@ -851,6 +877,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__DonorTabl__Gende__01142BA1">
+          <End Type="ByteBridgeDbModel.GenderTable" Role="GenderTable" Multiplicity="1" />
+          <End Type="ByteBridgeDbModel.DonorTable" Role="DonorTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderTable">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="DonorTable">
+              <PropertyRef Name="GenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -903,6 +941,8 @@
           <EntitySetMapping Name="DonorTables">
             <EntityTypeMapping TypeName="ByteBridgeDbModel.DonorTable">
               <MappingFragment StoreEntitySet="DonorTable">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="DonorId" ColumnName="DonorId" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />

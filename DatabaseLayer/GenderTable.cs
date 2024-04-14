@@ -18,6 +18,7 @@ namespace DatabaseLayer
         public GenderTable()
         {
             this.SeekerTables = new HashSet<SeekerTable>();
+            this.DonorTables = new HashSet<DonorTable>();
         }
     
         public int GenderID { get; set; }
@@ -25,5 +26,7 @@ namespace DatabaseLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SeekerTable> SeekerTables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DonorTable> DonorTables { get; set; }
     }
 }

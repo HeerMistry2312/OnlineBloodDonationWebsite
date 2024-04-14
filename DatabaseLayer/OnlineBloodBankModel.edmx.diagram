@@ -34,6 +34,7 @@
         <AssociationConnector Association="ByteBridgeDbModel.FK__HospitalT__UserI__74AE54BC" />
         <AssociationConnector Association="ByteBridgeDbModel.FK__SeekerTab__UserI__75A278F5" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_UserTable_UserTypeTable" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__DonorTabl__Gende__01142BA1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

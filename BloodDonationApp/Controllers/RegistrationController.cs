@@ -66,6 +66,7 @@ namespace BloodDonationApp.Controllers
                             user.UserTypeID = registrationMV.UserTypeID;
                             user.Description = registrationMV.User.Description;
                             DB.UserTables.Add(user);
+                            DB.SaveChanges();
 
                             var hospital = new HospitalTable();
                             hospital.FullNAme = registrationMV.Hospital.FullNAme;
@@ -102,6 +103,8 @@ namespace BloodDonationApp.Controllers
         public ActionResult DonorUser()
         {
             ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationmv.CityID);
+            ViewBag.BloodGroupID = new SelectList(DB.BloodGroupsTables.ToList(),"BloodGroupID","BloodGroup","0");
+            ViewBag.GenderID = new SelectList(DB.GenderTables.ToList(), "GenderID", "Gender", "0");
             return View(registrationmv);
         }
 
@@ -109,8 +112,60 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DonorUser(RegistrationMV registrationMV)
         {
-            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationmv.CityID);
-            return View();
+            if (ModelState.IsValid)
+            {
+                var checktitle = DB.DonorTables.Where(h => h.FullName == registrationMV.Donor.FullName.Trim() && h.CNIC == registrationMV.Donor.CNIC).FirstOrDefault();
+                if (checktitle == null)
+                {
+                    using (var transaction = DB.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var user = new UserTable();
+                            user.UserName = registrationMV.User.UserName;
+                            user.Password = registrationMV.User.Password;
+                            user.EmailAddress = registrationMV.User.EmailAddress;
+                            user.AccountStatusID = 1;
+                            user.UserTypeID = registrationMV.UserTypeID;
+                            user.Description = registrationMV.User.Description;
+                            DB.UserTables.Add(user);
+                            DB.SaveChanges();
+
+
+                            var donor = new DonorTable();
+                            donor.FullName = registrationMV.Donor.FullName;
+                            donor.BloodGroupID = registrationMV.BloodGroupID;
+                            donor.ContactNo = registrationMV.Donor.ContactNo;
+                            donor.CNIC = registrationMV.Donor.CNIC;
+                            donor.GenderID = registrationMV.GenderID;
+                            donor.Location = registrationMV.Donor.Location;
+                            donor.LastDonationDate = registrationMV.Donor.LastDonationDate;
+                            donor.CityID = registrationMV.CityID;
+                            donor.UserID = user.UserID;
+                            DB.DonorTables.Add(donor);
+
+                            DB.SaveChanges();
+                            transaction.Commit();
+                            ViewData["Message"] = "Thanks For registration, Your Query will be Review Shortly!!!";
+                            return RedirectToAction("MainHome", "Home");
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError(string.Empty, "Please Provide Correct Information...");
+                            transaction.Rollback();
+                        }
+                    }
+
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Donor Already Registered...");
+                }
+            }
+            ViewBag.BloodGroupID = new SelectList(DB.BloodGroupsTables.ToList(), "BloodGroupID", "BloodGroup", registrationmv.BloodGroupID);
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", registrationMV.CityID);
+            ViewBag.GenderID = new SelectList(DB.GenderTables.ToList(), "GenderID", "Gender", registrationMV.GenderID);
+            return View(registrationMV);
         }
 
         public ActionResult BloodBankUser()
