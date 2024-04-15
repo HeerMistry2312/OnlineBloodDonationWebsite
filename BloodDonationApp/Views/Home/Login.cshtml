@@ -25,13 +25,27 @@
     <link href="~/Content/Template/css/owl.carousel.css" rel="stylesheet" type="text/css">
     <link href="~/Content/Template/css/venobox.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="~/Content/Template/css/styles.css" />
+    <style>
+        body, html{
+            height: 100%;
+            margin: 0;
+        }
+        .bg {
+            background-image: url('../../content/template/images/login_background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
-<body style="background-image: url('../../content/template/images/login_background.jpg');">
+<body class="bg">
     <div id="preloader">
         <span class="margin-bottom"><img src="~/Content/Template/images/loader.gif" alt="" /></span>
     </div>
     <div class="container" align="center">
-        <div class="appointment-form-wrapper theme-custom-box-shadow text-center clearfix wow zoomIn">
+        <div class="appointment-form-wrapper theme-custom-box-shadow text-center clearfix wow zoomIn" style="width:40%;">
             <h3 class="join-heading join-heading-alt">Login</h3>
             @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "appoinment-form" }))
             {
@@ -73,5 +87,5 @@
         <script src="~/Content/Template/js/jquery.counterup.min.js"></script>
         <script src="~/Content/Template/js/venobox.min.js"></script>
         <script src="~/Content/Template/js/custom-scripts.js"></script>
-</bodystyle>
+</body>
 </html>
