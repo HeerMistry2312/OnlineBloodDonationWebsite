@@ -66,7 +66,7 @@ namespace BloodDonationApp.Controllers
                         
                         if(user.UserTypeID == 1) //Admin Session
                         {
-
+                            return RedirectToAction("MainHome");
                         }
                         else if(user.UserTypeID == 2) //Donor Session
 
@@ -112,7 +112,7 @@ namespace BloodDonationApp.Controllers
                                 Session["Gender"] = seeker.GenderTable.Gender;
                                 Session["RegistrationDate"] = seeker.RegistrationDate;
                                 Session["Address"] = seeker.Address;
-
+                                return RedirectToAction("MainHome");
                             }
                             else
                             {
@@ -136,7 +136,7 @@ namespace BloodDonationApp.Controllers
                                 Session["Location"] = hospital.Location;
                                
                                 Session["Address"] = hospital.Address;
-
+                                return RedirectToAction("MainHome");
                             }
                             else
                             {
@@ -160,7 +160,7 @@ namespace BloodDonationApp.Controllers
                                 Session["Location"] = bloodbank.Location;
 
                                 Session["Address"] = bloodbank.Address;
-
+                                return RedirectToAction("MainHome");
                             }
                             else
                             {

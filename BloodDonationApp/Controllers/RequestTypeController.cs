@@ -16,6 +16,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult AllRequestTypes()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var requesttypes = DB.RequestTypeTAbles.ToList();
             var listrequesttypes = new List<RequestTypeMV>();
             foreach (var requesttype in requesttypes)
@@ -29,6 +33,10 @@ namespace BloodDonationApp.Controllers
         }
         public ActionResult Create()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var requesttype = new RequestTypeMV();
             return View(requesttype);
         }
@@ -36,6 +44,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RequestTypeMV requestTypeMV)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 var checkRequestType = DB.RequestTypeTAbles.Where(b => b.RequestType == requestTypeMV.RequestType).FirstOrDefault();
@@ -57,6 +69,10 @@ namespace BloodDonationApp.Controllers
         }
         public ActionResult Edit(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var requesttype = DB.RequestTypeTAbles.Find(id);
             if(requesttype == null)
             {
@@ -72,7 +88,11 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(RequestTypeMV requestTypeMV)
         {
-            if(ModelState.IsValid)
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            if (ModelState.IsValid)
             {
                 var checkRequestType = DB.RequestTypeTAbles.Where(b => b.RequestType == requestTypeMV.RequestType && b.RequestTypeID != requestTypeMV.RequestTypeID).FirstOrDefault();
                 if (checkRequestType == null)
@@ -94,6 +114,10 @@ namespace BloodDonationApp.Controllers
         }
         public ActionResult Delete(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,6 +136,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var requesttype = DB.RequestTypeTAbles.Find(id);
             DB.RequestTypeTAbles.Remove(requesttype);
             DB.SaveChanges();

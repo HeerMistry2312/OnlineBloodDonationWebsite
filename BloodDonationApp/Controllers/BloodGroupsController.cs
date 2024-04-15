@@ -16,6 +16,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult AllBloodGroups()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var bloodGroups = DB.BloodGroupsTables.ToList();
             var listBloodGroups = new List<BloodGroupsMV>();
             foreach (var bloodGroup in bloodGroups)
@@ -30,6 +34,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult Create()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var bloodGroup = new BloodGroupsMV();
             return View(bloodGroup);
         }
@@ -37,6 +45,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BloodGroupsMV bloodGroupsMV)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 var checkBloodGroup = DB.BloodGroupsTables.Where(b => b.BloodGroup == bloodGroupsMV.BloodGroup).FirstOrDefault();
@@ -59,6 +71,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult Edit(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var bloodGroup = DB.BloodGroupsTables.Find(id);
             if (bloodGroup == null)
             {
@@ -74,6 +90,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BloodGroupsMV bloodGroupsMV)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
             var checkBloodGroup = DB.BloodGroupsTables.Where(b => b.BloodGroup == bloodGroupsMV.BloodGroup && b.BloodGroupID != bloodGroupsMV.BloodGroupID).FirstOrDefault();
@@ -96,6 +116,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +138,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var bloodGroups = DB.BloodGroupsTables.Find(id);
             DB.BloodGroupsTables.Remove(bloodGroups);
             DB.SaveChanges();

@@ -16,6 +16,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult AllUserTypes()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var userTypes = DB.UserTypeTables.ToList();
             var listUserTypes = new List<UserTypeMV>();
             foreach (var userType in userTypes)
@@ -30,6 +34,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult Create()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var userType = new UserTypeMV();
             return View(userType);
         }
@@ -37,6 +45,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserTypeMV userTypeMV)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 var checkUserType = DB.UserTypeTables.Where(b => b.UserType == userTypeMV.UserType).FirstOrDefault();
@@ -59,6 +71,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult Edit(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var userType = DB.UserTypeTables.Find(id);
             if (userType == null)
             {
@@ -74,6 +90,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserTypeMV userTypeMV)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 var checkUserType = DB.UserTypeTables.Where(b => b.UserType == userTypeMV.UserType && b.UserTypeID != userTypeMV.UserTypeID).FirstOrDefault();
@@ -96,6 +116,10 @@ namespace BloodDonationApp.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +138,10 @@ namespace BloodDonationApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var userType = DB.UserTypeTables.Find(id);
             DB.UserTypeTables.Remove(userType);
             DB.SaveChanges();
