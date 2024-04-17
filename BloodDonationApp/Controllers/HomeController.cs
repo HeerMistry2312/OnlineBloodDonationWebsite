@@ -66,7 +66,7 @@ namespace BloodDonationApp.Controllers
                         
                         if(user.UserTypeID == 1) //Admin Session
                         {
-                            return RedirectToAction("MainHome");
+                            return RedirectToAction("AllNewUserRequest", "Accounts");
                         }
                         else if(user.UserTypeID == 2) //Donor Session
 
