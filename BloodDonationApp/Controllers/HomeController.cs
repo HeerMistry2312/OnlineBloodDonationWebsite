@@ -85,7 +85,7 @@ namespace BloodDonationApp.Controllers
                                 Session["CNIC"] = donor.CNIC;
                                 Session["CityID"] = donor.CityID;
                                 Session["City"] = donor.CityTable.City;
-                                
+                                return RedirectToAction("Donor", "Dashboard");
                             }
                             else
                             {
@@ -112,7 +112,7 @@ namespace BloodDonationApp.Controllers
                                 Session["Gender"] = seeker.GenderTable.Gender;
                                 Session["RegistrationDate"] = seeker.RegistrationDate;
                                 Session["Address"] = seeker.Address;
-                                return RedirectToAction("MainHome");
+                                return RedirectToAction("Seeker", "Dashboard");
                             }
                             else
                             {
@@ -136,7 +136,7 @@ namespace BloodDonationApp.Controllers
                                 Session["Location"] = hospital.Location;
                                
                                 Session["Address"] = hospital.Address;
-                                return RedirectToAction("MainHome");
+                                return RedirectToAction("Hospital", "Dashboard");
                             }
                             else
                             {
@@ -160,7 +160,7 @@ namespace BloodDonationApp.Controllers
                                 Session["Location"] = bloodbank.Location;
 
                                 Session["Address"] = bloodbank.Address;
-                                return RedirectToAction("MainHome");
+                                return RedirectToAction("BloodBank", "Dashboard");
                             }
                             else
                             {
