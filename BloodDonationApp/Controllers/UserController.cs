@@ -24,10 +24,12 @@ namespace BloodDonationApp.Controllers
         }
         public ActionResult EditUserProfile(int? id)
         {
+            
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Home");
             }
+           
             var userprofile = new RegistrationMV();
             var user = DB.UserTables.Find(id);
             userprofile.UserTypeID = user.UserTypeID;
@@ -120,19 +122,24 @@ namespace BloodDonationApp.Controllers
                 userprofile.BloodGroupID = donor.BloodGroupID;
                 userprofile.GenderID = donor.GenderID;
             }
-
-            return View(user);
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", userprofile.CityID);
+            ViewBag.BloodGroupID = new SelectList(DB.BloodGroupsTables.ToList(), "BloodGroupID", "BloodGroup", userprofile.BloodGroupID);
+            ViewBag.GenderID = new SelectList(DB.GenderTables.ToList(), "GenderID", "Gender", userprofile.BloodGroupID);
+            return View(userprofile);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUserProfile(RegistrationMV registrationMVid)
+        public ActionResult EditUserProfile(RegistrationMV userprofile)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Home");
             }
             //var user = DB.UserTables.Find(id);
-            return View(registrationMVid);
+            ViewBag.CityID = new SelectList(DB.CityTables.ToList(), "CityID", "City", userprofile.CityID);
+            ViewBag.BloodGroupID = new SelectList(DB.BloodGroupsTables.ToList(), "BloodGroupID", "BloodGroup", userprofile.BloodGroupID);
+            ViewBag.GenderID = new SelectList(DB.GenderTables.ToList(), "GenderID", "Gender", userprofile.BloodGroupID);
+            return View(userprofile);
         }
     }
 }
