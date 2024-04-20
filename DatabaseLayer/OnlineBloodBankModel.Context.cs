@@ -39,5 +39,6 @@ namespace DatabaseLayer
         public virtual DbSet<UserTable> UserTables { get; set; }
         public virtual DbSet<UserTypeTable> UserTypeTables { get; set; }
         public virtual DbSet<BloodBankStockDetailTable> BloodBankStockDetailTables { get; set; }
+        public virtual DbSet<CampaignTable> CampaignTables { get; set; }
     }
 }

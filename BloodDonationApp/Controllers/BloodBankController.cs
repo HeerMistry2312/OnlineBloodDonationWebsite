@@ -41,5 +41,13 @@ namespace BloodDonationApp.Controllers
 
             return View(list);
         }
+        public ActionResult NewCampaign()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            return View();
+        }
     }
 }

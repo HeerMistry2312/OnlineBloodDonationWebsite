@@ -20,7 +20,9 @@ namespace DatabaseLayer
         public double Quantity { get; set; }
         public int DonorID { get; set; }
         public System.DateTime DonateDateTime { get; set; }
+        public int CampaignID { get; set; }
     
+        public virtual CampaignTable CampaignTable { get; set; }
         public virtual BloodBankStockTable BloodBankStockTable { get; set; }
         public virtual BloodGroupsTable BloodGroupsTable { get; set; }
         public virtual DonorTable DonorTable { get; set; }

@@ -22,6 +22,7 @@
           <Property Name="Quantity" Type="float" Nullable="false" />
           <Property Name="DonorID" Type="int" Nullable="false" />
           <Property Name="DonateDateTime" Type="datetime" Nullable="false" />
+          <Property Name="CampaignID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BloodBankStockTable">
           <Key>
@@ -54,6 +55,20 @@
           </Key>
           <Property Name="BloodGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BloodGroup" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CampaignTable">
+          <Key>
+            <PropertyRef Name="CampaignID" />
+          </Key>
+          <Property Name="CampaignID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BloodBankID" Type="int" Nullable="false" />
+          <Property Name="CampaignDate" Type="date" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CampaignDetails" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CampaignPhoto" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CampaignTitle" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="CityTable">
           <Key>
@@ -153,6 +168,18 @@
           <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK__BloodBank__Campa__09A971A2">
+          <End Role="CampaignTable" Type="Self.CampaignTable" Multiplicity="1" />
+          <End Role="BloodBankStockDetailTable" Type="Self.BloodBankStockDetailTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaignTable">
+              <PropertyRef Name="CampaignID" />
+            </Principal>
+            <Dependent Role="BloodBankStockDetailTable">
+              <PropertyRef Name="CampaignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__BloodBank__UserI__72C60C4A">
           <End Role="UserTable" Type="Self.UserTable" Multiplicity="0..1" />
           <End Role="BloodBankTable" Type="Self.BloodBankTable" Multiplicity="*" />
@@ -285,6 +312,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CampaignTable_BloodBankTable">
+          <End Role="BloodBankTable" Type="Self.BloodBankTable" Multiplicity="1" />
+          <End Role="CampaignTable" Type="Self.CampaignTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBankTable">
+              <PropertyRef Name="BLoodBankID" />
+            </Principal>
+            <Dependent Role="CampaignTable">
+              <PropertyRef Name="BloodBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DonorTable_BloodGroupsTable">
           <End Role="BloodGroupsTable" Type="Self.BloodGroupsTable" Multiplicity="1" />
           <End Role="DonorTable" Type="Self.DonorTable" Multiplicity="*" />
@@ -399,6 +438,7 @@
           <EntitySet Name="BloodBankStockTable" EntityType="Self.BloodBankStockTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BloodBankTable" EntityType="Self.BloodBankTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BloodGroupsTable" EntityType="Self.BloodGroupsTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CampaignTable" EntityType="Self.CampaignTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CityTable" EntityType="Self.CityTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonorTable" EntityType="Self.DonorTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GenderTable" EntityType="Self.GenderTable" Schema="dbo" store:Type="Tables" />
@@ -408,6 +448,10 @@
           <EntitySet Name="SeekerTable" EntityType="Self.SeekerTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTypeTable" EntityType="Self.UserTypeTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BloodBank__Campa__09A971A2" Association="Self.FK__BloodBank__Campa__09A971A2">
+            <End Role="CampaignTable" EntitySet="CampaignTable" />
+            <End Role="BloodBankStockDetailTable" EntitySet="BloodBankStockDetailTable" />
+          </AssociationSet>
           <AssociationSet Name="FK__BloodBank__UserI__72C60C4A" Association="Self.FK__BloodBank__UserI__72C60C4A">
             <End Role="UserTable" EntitySet="UserTable" />
             <End Role="BloodBankTable" EntitySet="BloodBankTable" />
@@ -451,6 +495,10 @@
           <AssociationSet Name="FK_BloodBankTable_CityTable" Association="Self.FK_BloodBankTable_CityTable">
             <End Role="CityTable" EntitySet="CityTable" />
             <End Role="BloodBankTable" EntitySet="BloodBankTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaignTable_BloodBankTable" Association="Self.FK_CampaignTable_BloodBankTable">
+            <End Role="BloodBankTable" EntitySet="BloodBankTable" />
+            <End Role="CampaignTable" EntitySet="CampaignTable" />
           </AssociationSet>
           <AssociationSet Name="FK_DonorTable_BloodGroupsTable" Association="Self.FK_DonorTable_BloodGroupsTable">
             <End Role="BloodGroupsTable" EntitySet="BloodGroupsTable" />
@@ -523,6 +571,7 @@
           <NavigationProperty Name="CityTable" Relationship="Self.FK_BloodBankTable_CityTable" FromRole="BloodBankTable" ToRole="CityTable" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="UserTable" Relationship="ByteBridgeDbModel.FK__BloodBank__UserI__72C60C4A" FromRole="BloodBankTable" ToRole="UserTable" />
+          <NavigationProperty Name="CampaignTables" Relationship="ByteBridgeDbModel.FK_CampaignTable_BloodBankTable" FromRole="BloodBankTable" ToRole="CampaignTable" />
         </EntityType>
         <EntityType Name="BloodGroupsTable">
           <Key>
@@ -836,6 +885,11 @@
             <End Role="DonorTable" EntitySet="DonorTables" />
           </AssociationSet>
           <EntitySet Name="BloodBankStockDetailTables" EntityType="ByteBridgeDbModel.BloodBankStockDetailTable" />
+          <EntitySet Name="CampaignTables" EntityType="ByteBridgeDbModel.CampaignTable" />
+          <AssociationSet Name="FK__BloodBank__Campa__09A971A2" Association="ByteBridgeDbModel.FK__BloodBank__Campa__09A971A2">
+            <End Role="CampaignTable" EntitySet="CampaignTables" />
+            <End Role="BloodBankStockDetailTable" EntitySet="BloodBankStockDetailTables" />
+          </AssociationSet>
           <AssociationSet Name="FK_BloodBankStockDetailTable_BloodBankStockTable" Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodBankStockTable">
             <End Role="BloodBankStockTable" EntitySet="BloodBankStockTables" />
             <End Role="BloodBankStockDetailTable" EntitySet="BloodBankStockDetailTables" />
@@ -848,7 +902,11 @@
             <End Role="DonorTable" EntitySet="DonorTables" />
             <End Role="BloodBankStockDetailTable" EntitySet="BloodBankStockDetailTables" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_CampaignTable_BloodBankTable" Association="ByteBridgeDbModel.FK_CampaignTable_BloodBankTable">
+            <End Role="BloodBankTable" EntitySet="BloodBankTables" />
+            <End Role="CampaignTable" EntitySet="CampaignTables" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="AccountStatusTable">
           <Key>
             <PropertyRef Name="AccountStatusID" />
@@ -977,10 +1035,40 @@
           <Property Name="Quantity" Type="Double" Nullable="false" />
           <Property Name="DonorID" Type="Int32" Nullable="false" />
           <Property Name="DonateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CampaignID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CampaignTable" Relationship="ByteBridgeDbModel.FK__BloodBank__Campa__09A971A2" FromRole="BloodBankStockDetailTable" ToRole="CampaignTable" />
           <NavigationProperty Name="BloodBankStockTable" Relationship="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodBankStockTable" FromRole="BloodBankStockDetailTable" ToRole="BloodBankStockTable" />
           <NavigationProperty Name="BloodGroupsTable" Relationship="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodGroupsTable" FromRole="BloodBankStockDetailTable" ToRole="BloodGroupsTable" />
           <NavigationProperty Name="DonorTable" Relationship="ByteBridgeDbModel.FK_BloodBankStockDetailTable_DonorTable" FromRole="BloodBankStockDetailTable" ToRole="DonorTable" />
         </EntityType>
+        <EntityType Name="CampaignTable">
+          <Key>
+            <PropertyRef Name="CampaignID" />
+          </Key>
+          <Property Name="CampaignID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BloodBankID" Type="Int32" Nullable="false" />
+          <Property Name="CampaignDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CampaignDetails" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BloodBankStockDetailTables" Relationship="ByteBridgeDbModel.FK__BloodBank__Campa__09A971A2" FromRole="CampaignTable" ToRole="BloodBankStockDetailTable" />
+          <NavigationProperty Name="BloodBankTable" Relationship="ByteBridgeDbModel.FK_CampaignTable_BloodBankTable" FromRole="CampaignTable" ToRole="BloodBankTable" />
+          <Property Name="CampaignPhoto" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CampaignTitle" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__BloodBank__Campa__09A971A2">
+          <End Type="ByteBridgeDbModel.CampaignTable" Role="CampaignTable" Multiplicity="1" />
+          <End Type="ByteBridgeDbModel.BloodBankStockDetailTable" Role="BloodBankStockDetailTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaignTable">
+              <PropertyRef Name="CampaignID" />
+            </Principal>
+            <Dependent Role="BloodBankStockDetailTable">
+              <PropertyRef Name="CampaignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BloodBankStockDetailTable_BloodBankStockTable">
           <End Type="ByteBridgeDbModel.BloodBankStockTable" Role="BloodBankStockTable" Multiplicity="1" />
           <End Type="ByteBridgeDbModel.BloodBankStockDetailTable" Role="BloodBankStockDetailTable" Multiplicity="*" />
@@ -1017,7 +1105,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_CampaignTable_BloodBankTable">
+          <End Type="ByteBridgeDbModel.BloodBankTable" Role="BloodBankTable" Multiplicity="1" />
+          <End Type="ByteBridgeDbModel.CampaignTable" Role="CampaignTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodBankTable">
+              <PropertyRef Name="BLoodBankID" />
+            </Principal>
+            <Dependent Role="CampaignTable">
+              <PropertyRef Name="BloodBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1176,12 +1276,28 @@
           <EntitySetMapping Name="BloodBankStockDetailTables">
             <EntityTypeMapping TypeName="ByteBridgeDbModel.BloodBankStockDetailTable">
               <MappingFragment StoreEntitySet="BloodBankStockDetailTable">
+                <ScalarProperty Name="CampaignID" ColumnName="CampaignID" />
                 <ScalarProperty Name="DonateDateTime" ColumnName="DonateDateTime" />
                 <ScalarProperty Name="DonorID" ColumnName="DonorID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="BloodGroupID" ColumnName="BloodGroupID" />
                 <ScalarProperty Name="BloodBankStockID" ColumnName="BloodBankStockID" />
                 <ScalarProperty Name="BloodBankStockDetailID" ColumnName="BloodBankStockDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaignTables">
+            <EntityTypeMapping TypeName="ByteBridgeDbModel.CampaignTable">
+              <MappingFragment StoreEntitySet="CampaignTable">
+                <ScalarProperty Name="CampaignTitle" ColumnName="CampaignTitle" />
+                <ScalarProperty Name="CampaignPhoto" ColumnName="CampaignPhoto" />
+                <ScalarProperty Name="CampaignDetails" ColumnName="CampaignDetails" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="CampaignDate" ColumnName="CampaignDate" />
+                <ScalarProperty Name="BloodBankID" ColumnName="BloodBankID" />
+                <ScalarProperty Name="CampaignID" ColumnName="CampaignID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
