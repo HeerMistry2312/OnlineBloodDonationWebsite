@@ -35,6 +35,10 @@
         <AssociationConnector Association="ByteBridgeDbModel.FK__SeekerTab__UserI__75A278F5" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_UserTable_UserTypeTable" />
         <AssociationConnector Association="ByteBridgeDbModel.FK__DonorTabl__Gende__01142BA1" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.BloodBankStockDetailTable" Width="1.5" PointX="10.25" PointY="6.375" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodBankStockTable" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodGroupsTable" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_DonorTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

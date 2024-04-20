@@ -53,6 +53,9 @@
     <Compile Include="AccountStatusTable.cs">
       <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BloodBankStockDetailTable.cs">
+      <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BloodBankStockTable.cs">
       <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
     </Compile>
