@@ -96,15 +96,17 @@
                         <ul class="nav navbar-nav navbar-right">
 
                             <li>
-                                <a href="#">Home</a>
-                                <ul class="drop-down">
-                                    <li><a href="index.html" title="Home Layout 01">Home 01</a></li>
-                                    <li><a href="home-2.html" title="Home Layout 02">Home 02</a></li>
-                                </ul>
+                                <a href="@Url.Content("../Home/MainHome")">Home</a>
+
                             </li>
 
 
-                            <li><a href="about-us.html" title="About Us">About Us</a></li>
+                            <li><a href="@Url.Content("~/Home/AboutUs")">About Us</a></li>
+
+                            <li>
+                                <a href="@Url.Content("~/Finder/FinderDonors")">Find Donor</a>
+
+                            </li>
 
                             <li>
                                 <a href="#">Campaign</a>
@@ -153,7 +155,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li>
                                 <a href="#">Blog</a>
                                 <ul class="drop-down">
@@ -176,7 +178,7 @@
     <div class="slider-wrap">
         <div id="slider_1" class="owl-carousel" data-nav="true" data-dots="false" data-autoplay="true" data-autoplaytimeout="17000">
 
-            <div class="slider_item_container" data-bg_img="~/Content/Template/images/home_1_slider_1.jpg" data-bg_color="#555555" data-bg_opacity="0.0">
+            <div class="slider_item_container" data-bg_img="~@Url.Content("~/Content/Template/images/home_1_slider_1.jpg")" data-bg_color="#555555" data-bg_opacity="0.0">
                 <div class="item">
                     <div class="slider-content">
                         <div class="container text-left">
@@ -192,7 +194,7 @@
                                             <br />
                                             IN OTHER PERSON FACE
                                         </h2>
-                                        <a href="#" class="btn btn-theme margin-top-24">Donate Now</a>
+                                        <a href="#registrationsection" class="btn btn-theme margin-top-24">Find Donor</a>
                                         <a href="#" class="btn btn-theme btn-theme-invert margin-top-24">CALL : 411-009-872-333</a>
                                     </div>
                                 </div> <!-- end .col-sm-12  -->
@@ -202,7 +204,7 @@
                 </div> <!-- end .item  -->
             </div> <!-- end .slider_item_container  -->
 
-            <div class="slider_item_container" data-bg_img="~/Content/Template/images/home_1_slider_2.jpg" data-bg_color="#555555" data-bg_opacity="0.0">
+            <div class="slider_item_container" data-bg_img="@Url.Content("~/Content/Template/images/home_1_slider_2.jpg")" data-bg_color="#555555" data-bg_opacity="0.0">
                 <div class="item">
                     <div class="slider-content">
                         <div class="container text-left">
@@ -216,7 +218,7 @@
                                             <br>
                                             AND INSPIRES OTHERS.
                                         </h2>
-                                        <a href="#" class="btn btn-theme margin-top-24">Donate Now</a>
+                                        <a href="#registrationsection" class="btn btn-theme margin-top-24">Donate Now</a>
                                     </div>
                                 </div> <!-- end .col-sm-12  -->
                             </div> <!-- end .row  -->
@@ -283,7 +285,7 @@
     </section> <!--  end .section-about-us -->
     <!-- SECTION TESTIMONIAL   -->
 
-    <section class="section-content-block section-custom-bg" data-bg_img='~/Content/Template/images/testimony_feat_bg.jpg' data-bg_size='cover' data-bg_position='top center' data-bg_opacity="0">
+    <section class="section-content-block section-custom-bg" data-bg_img="@Url.Content("~/Content/Template/images/testimony_feat_bg.jpg")" data-bg_size='cover' data-bg_position='top center' data-bg_opacity="0">
 
         <div class="container margin-top-80">
             <div class="row section-heading-wrapper-alt">
@@ -505,7 +507,7 @@
 
     <!--  SECTION APPOINTMENT BOX -->
 
-    <section class="section-content-block section-custom-bg section-custom-bg-extra-padding" data-bg_img='~/Content/Template/images/appointment_female_bg.jpg' data-bg_color='#000000' data-bg_opacity='0.1'>
+    <section class="section-content-block section-custom-bg section-custom-bg-extra-padding" data-bg_img="@Url.Content("~/Content/Template/images/appointment_female_bg.jpg")" data-bg_color='#000000' data-bg_opacity='0.1'>
 
         <div class="container">
             <div class="custom-empty-space" data-height="160px" data-class="col-sm-hidden"></div>
@@ -515,7 +517,7 @@
 
     <!--  SECTION APPOINTMENT   -->
 
-    <section class="section-content-block section-secondary-bg">
+    <section id="registrationsection" class="section-content-block section-secondary-bg">
 
         <div class="container">
 
@@ -627,7 +629,7 @@
 
                         <i class="fa fa-heartbeat icon"></i>
                         <span class="counter">2578</span>
-                        <h4 class="text-capitalize">Success Smile</h4>
+                        <h4 class="text-capitalize">Donors</h4>
 
                     </div>
 
@@ -639,7 +641,7 @@
 
                         <i class="fa fa-stethoscope icon"></i>
                         <span class="counter">3235</span>
-                        <h4 class="text-capitalize">Happy Donors</h4>
+                        <h4 class="text-capitalize">Hospitals</h4>
 
                     </div>
 
@@ -651,7 +653,7 @@
 
                         <i class="fa fa-users icon"></i>
                         <span class="counter">3568</span>
-                        <h4 class="text-capitalize">Happy Recipient</h4>
+                        <h4 class="text-capitalize">Seekers</h4>
 
                     </div>
 
@@ -663,7 +665,7 @@
 
                         <i class="fa fa-building icon"></i>
                         <span class="counter">1364</span>
-                        <h4 class="text-capitalize">Total Awards</h4>
+                        <h4 class="text-capitalize">Blood Banks</h4>
 
                     </div>
 
@@ -677,7 +679,7 @@
     </section>  <!--  end .appointment-section  -->
     <!-- SECTION TEAM   -->
 
-    <section class="section-content-block section-custom-bg" data-bg_img='~/Content/Template/images/team_feat_bg.jpg' data-bg_size='cover' data-bg_position='top center' data-bg_opacity="0">
+    <section class="section-content-block section-custom-bg" data-bg_img="@Url.Content("~/Content/Template/images/team_feat_bg.jpg")" data-bg_size='cover' data-bg_position='top center' data-bg_opacity="0">
 
         <div class="container margin-top-80">
             <div class="row section-heading-wrapper-alt">

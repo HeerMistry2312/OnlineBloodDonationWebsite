@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ByteBridgeDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AcceptedTypeTable">
+          <Key>
+            <PropertyRef Name="AcceptedTypeID" />
+          </Key>
+          <Property Name="AcceptedTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AcceptedType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="AccountStatusTable">
           <Key>
             <PropertyRef Name="AccountStatusID" />
@@ -113,18 +120,27 @@
           <Property Name="CityID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="RequestStatusTable">
+          <Key>
+            <PropertyRef Name="RequestStatusID" />
+          </Key>
+          <Property Name="RequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="RequestTable">
           <Key>
             <PropertyRef Name="RequestID" />
           </Key>
           <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestDate" Type="date" Nullable="false" />
-          <Property Name="SeekerID" Type="int" Nullable="false" />
-          <Property Name="HospitalD" Type="int" Nullable="false" />
-          <Property Name="BloodBankID" Type="int" Nullable="false" />
-          <Property Name="DonorID" Type="int" Nullable="false" />
           <Property Name="RequiredBloodGroupID" Type="int" Nullable="false" />
           <Property Name="RequestTypeID" Type="int" Nullable="false" />
+          <Property Name="AcceptedID" Type="int" Nullable="false" />
+          <Property Name="RequestByID" Type="int" Nullable="false" />
+          <Property Name="AcceptedTypeID" Type="int" Nullable="false" />
+          <Property Name="RequestDetails" Type="nvarchar" MaxLength="2000" />
+          <Property Name="RequestStatusID" Type="int" Nullable="false" />
+          <Property Name="ExpectedDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestTypeTAble">
           <Key>
@@ -225,6 +241,30 @@
             </Principal>
             <Dependent Role="HospitalTable">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestTa__Accep__0D7A0286">
+          <End Role="AcceptedTypeTable" Type="Self.AcceptedTypeTable" Multiplicity="1" />
+          <End Role="RequestTable" Type="Self.RequestTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcceptedTypeTable">
+              <PropertyRef Name="AcceptedTypeID" />
+            </Principal>
+            <Dependent Role="RequestTable">
+              <PropertyRef Name="AcceptedTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestTa__Reque__10566F31">
+          <End Role="RequestStatusTable" Type="Self.RequestStatusTable" Multiplicity="1" />
+          <End Role="RequestTable" Type="Self.RequestTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatusTable">
+              <PropertyRef Name="RequestStatusID" />
+            </Principal>
+            <Dependent Role="RequestTable">
+              <PropertyRef Name="RequestStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -433,6 +473,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ByteBridgeDbModelStoreContainer">
+          <EntitySet Name="AcceptedTypeTable" EntityType="Self.AcceptedTypeTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountStatusTable" EntityType="Self.AccountStatusTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BloodBankStockDetailTable" EntityType="Self.BloodBankStockDetailTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BloodBankStockTable" EntityType="Self.BloodBankStockTable" Schema="dbo" store:Type="Tables" />
@@ -443,6 +484,7 @@
           <EntitySet Name="DonorTable" EntityType="Self.DonorTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GenderTable" EntityType="Self.GenderTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalTable" EntityType="Self.HospitalTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestStatusTable" EntityType="Self.RequestStatusTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestTable" EntityType="Self.RequestTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestTypeTAble" EntityType="Self.RequestTypeTAble" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeekerTable" EntityType="Self.SeekerTable" Schema="dbo" store:Type="Tables" />
@@ -467,6 +509,14 @@
           <AssociationSet Name="FK__HospitalT__UserI__74AE54BC" Association="Self.FK__HospitalT__UserI__74AE54BC">
             <End Role="UserTable" EntitySet="UserTable" />
             <End Role="HospitalTable" EntitySet="HospitalTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestTa__Accep__0D7A0286" Association="Self.FK__RequestTa__Accep__0D7A0286">
+            <End Role="AcceptedTypeTable" EntitySet="AcceptedTypeTable" />
+            <End Role="RequestTable" EntitySet="RequestTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestTa__Reque__10566F31" Association="Self.FK__RequestTa__Reque__10566F31">
+            <End Role="RequestStatusTable" EntitySet="RequestStatusTable" />
+            <End Role="RequestTable" EntitySet="RequestTable" />
           </AssociationSet>
           <AssociationSet Name="FK__SeekerTab__UserI__75A278F5" Association="Self.FK__SeekerTab__UserI__75A278F5">
             <End Role="UserTable" EntitySet="UserTable" />
@@ -640,27 +690,13 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserTable" Relationship="ByteBridgeDbModel.FK__HospitalT__UserI__74AE54BC" FromRole="HospitalTable" ToRole="UserTable" />
         </EntityType>
-        <EntityType Name="RequestTable">
-          <Key>
-            <PropertyRef Name="RequestID" />
-          </Key>
-          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="SeekerID" Type="Int32" Nullable="false" />
-          <Property Name="HospitalD" Type="Int32" Nullable="false" />
-          <Property Name="BloodBankID" Type="Int32" Nullable="false" />
-          <Property Name="DonorID" Type="Int32" Nullable="false" />
-          <Property Name="RequiredBloodGroupID" Type="Int32" Nullable="false" />
-          <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RequestTypeTAble" Relationship="Self.FK_RequestTable_RequestTypeTAble" FromRole="RequestTable" ToRole="RequestTypeTAble" />
-        </EntityType>
         <EntityType Name="RequestTypeTAble">
           <Key>
             <PropertyRef Name="RequestTypeID" />
           </Key>
           <Property Name="RequestTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RequestType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="RequestTables" Relationship="Self.FK_RequestTable_RequestTypeTAble" FromRole="RequestTypeTAble" ToRole="RequestTable" />
+          <NavigationProperty Name="RequestTables" Relationship="ByteBridgeDbModel.FK_RequestTable_RequestTypeTAble" FromRole="RequestTypeTAble" ToRole="RequestTable" />
         </EntityType>
         <EntityType Name="SeekerTable">
           <Key>
@@ -790,18 +826,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RequestTable_RequestTypeTAble">
-          <End Role="RequestTypeTAble" Type="Self.RequestTypeTAble" Multiplicity="1" />
-          <End Role="RequestTable" Type="Self.RequestTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequestTypeTAble">
-              <PropertyRef Name="RequestTypeID" />
-            </Principal>
-            <Dependent Role="RequestTable">
-              <PropertyRef Name="RequestTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ByteBridgeDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BloodBankStockTables" EntityType="Self.BloodBankStockTable" />
           <EntitySet Name="BloodBankTables" EntityType="Self.BloodBankTable" />
@@ -810,7 +834,6 @@
           <EntitySet Name="DonorTables" EntityType="Self.DonorTable" />
           <EntitySet Name="GenderTables" EntityType="Self.GenderTable" />
           <EntitySet Name="HospitalTables" EntityType="Self.HospitalTable" />
-          <EntitySet Name="RequestTables" EntityType="Self.RequestTable" />
           <EntitySet Name="RequestTypeTAbles" EntityType="Self.RequestTypeTAble" />
           <EntitySet Name="SeekerTables" EntityType="Self.SeekerTable" />
           <AssociationSet Name="FK_BloodBankStockTable_BloodBankTable1" Association="Self.FK_BloodBankStockTable_BloodBankTable1">
@@ -848,10 +871,6 @@
           <AssociationSet Name="FK_SeekerTable_GenderTable" Association="Self.FK_SeekerTable_GenderTable">
             <End Role="GenderTable" EntitySet="GenderTables" />
             <End Role="SeekerTable" EntitySet="SeekerTables" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequestTable_RequestTypeTAble" Association="Self.FK_RequestTable_RequestTypeTAble">
-            <End Role="RequestTypeTAble" EntitySet="RequestTypeTAbles" />
-            <End Role="RequestTable" EntitySet="RequestTables" />
           </AssociationSet>
           <EntitySet Name="AccountStatusTables" EntityType="ByteBridgeDbModel.AccountStatusTable" />
           <EntitySet Name="UserTables" EntityType="ByteBridgeDbModel.UserTable" />
@@ -905,6 +924,21 @@
           <AssociationSet Name="FK_CampaignTable_BloodBankTable" Association="ByteBridgeDbModel.FK_CampaignTable_BloodBankTable">
             <End Role="BloodBankTable" EntitySet="BloodBankTables" />
             <End Role="CampaignTable" EntitySet="CampaignTables" />
+          </AssociationSet>
+          <EntitySet Name="AcceptedTypeTables" EntityType="ByteBridgeDbModel.AcceptedTypeTable" />
+          <EntitySet Name="RequestStatusTables" EntityType="ByteBridgeDbModel.RequestStatusTable" />
+          <EntitySet Name="RequestTables" EntityType="ByteBridgeDbModel.RequestTable" />
+          <AssociationSet Name="FK__RequestTa__Accep__0D7A0286" Association="ByteBridgeDbModel.FK__RequestTa__Accep__0D7A0286">
+            <End Role="AcceptedTypeTable" EntitySet="AcceptedTypeTables" />
+            <End Role="RequestTable" EntitySet="RequestTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestTa__Reque__10566F31" Association="ByteBridgeDbModel.FK__RequestTa__Reque__10566F31">
+            <End Role="RequestStatusTable" EntitySet="RequestStatusTables" />
+            <End Role="RequestTable" EntitySet="RequestTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestTable_RequestTypeTAble" Association="ByteBridgeDbModel.FK_RequestTable_RequestTypeTAble">
+            <End Role="RequestTypeTAble" EntitySet="RequestTypeTAbles" />
+            <End Role="RequestTable" EntitySet="RequestTables" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AccountStatusTable">
@@ -1117,6 +1151,76 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AcceptedTypeTable">
+          <Key>
+            <PropertyRef Name="AcceptedTypeID" />
+          </Key>
+          <Property Name="AcceptedTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AcceptedType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RequestTables" Relationship="ByteBridgeDbModel.FK__RequestTa__Accep__0D7A0286" FromRole="AcceptedTypeTable" ToRole="RequestTable" />
+        </EntityType>
+        <EntityType Name="RequestStatusTable">
+          <Key>
+            <PropertyRef Name="RequestStatusID" />
+          </Key>
+          <Property Name="RequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RequestTables" Relationship="ByteBridgeDbModel.FK__RequestTa__Reque__10566F31" FromRole="RequestStatusTable" ToRole="RequestTable" />
+        </EntityType>
+        <EntityType Name="RequestTable">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RequiredBloodGroupID" Type="Int32" Nullable="false" />
+          <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AcceptedID" Type="Int32" Nullable="false" />
+          <Property Name="RequestByID" Type="Int32" Nullable="false" />
+          <Property Name="AcceptedTypeID" Type="Int32" Nullable="false" />
+          <Property Name="RequestDetails" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
+          <Property Name="ExpectedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AcceptedTypeTable" Relationship="ByteBridgeDbModel.FK__RequestTa__Accep__0D7A0286" FromRole="RequestTable" ToRole="AcceptedTypeTable" />
+          <NavigationProperty Name="RequestStatusTable" Relationship="ByteBridgeDbModel.FK__RequestTa__Reque__10566F31" FromRole="RequestTable" ToRole="RequestStatusTable" />
+          <NavigationProperty Name="RequestTypeTAble" Relationship="ByteBridgeDbModel.FK_RequestTable_RequestTypeTAble" FromRole="RequestTable" ToRole="RequestTypeTAble" />
+        </EntityType>
+        <Association Name="FK__RequestTa__Accep__0D7A0286">
+          <End Type="ByteBridgeDbModel.AcceptedTypeTable" Role="AcceptedTypeTable" Multiplicity="1" />
+          <End Type="ByteBridgeDbModel.RequestTable" Role="RequestTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcceptedTypeTable">
+              <PropertyRef Name="AcceptedTypeID" />
+            </Principal>
+            <Dependent Role="RequestTable">
+              <PropertyRef Name="AcceptedTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestTa__Reque__10566F31">
+          <End Type="ByteBridgeDbModel.RequestStatusTable" Role="RequestStatusTable" Multiplicity="1" />
+          <End Type="ByteBridgeDbModel.RequestTable" Role="RequestTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatusTable">
+              <PropertyRef Name="RequestStatusID" />
+            </Principal>
+            <Dependent Role="RequestTable">
+              <PropertyRef Name="RequestStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestTable_RequestTypeTAble">
+          <End Type="ByteBridgeDbModel.RequestTypeTAble" Role="RequestTypeTAble" Multiplicity="1" />
+          <End Type="ByteBridgeDbModel.RequestTable" Role="RequestTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestTypeTAble">
+              <PropertyRef Name="RequestTypeID" />
+            </Principal>
+            <Dependent Role="RequestTable">
+              <PropertyRef Name="RequestTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1205,20 +1309,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RequestTables">
-            <EntityTypeMapping TypeName="ByteBridgeDbModel.RequestTable">
-              <MappingFragment StoreEntitySet="RequestTable">
-                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="SeekerID" ColumnName="SeekerID" />
-                <ScalarProperty Name="HospitalD" ColumnName="HospitalD" />
-                <ScalarProperty Name="BloodBankID" ColumnName="BloodBankID" />
-                <ScalarProperty Name="DonorID" ColumnName="DonorID" />
-                <ScalarProperty Name="RequiredBloodGroupID" ColumnName="RequiredBloodGroupID" />
-                <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RequestTypeTAbles">
             <EntityTypeMapping TypeName="ByteBridgeDbModel.RequestTypeTAble">
               <MappingFragment StoreEntitySet="RequestTypeTAble">
@@ -1298,6 +1388,38 @@
                 <ScalarProperty Name="CampaignDate" ColumnName="CampaignDate" />
                 <ScalarProperty Name="BloodBankID" ColumnName="BloodBankID" />
                 <ScalarProperty Name="CampaignID" ColumnName="CampaignID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AcceptedTypeTables">
+            <EntityTypeMapping TypeName="ByteBridgeDbModel.AcceptedTypeTable">
+              <MappingFragment StoreEntitySet="AcceptedTypeTable">
+                <ScalarProperty Name="AcceptedType" ColumnName="AcceptedType" />
+                <ScalarProperty Name="AcceptedTypeID" ColumnName="AcceptedTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestStatusTables">
+            <EntityTypeMapping TypeName="ByteBridgeDbModel.RequestStatusTable">
+              <MappingFragment StoreEntitySet="RequestStatusTable">
+                <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestTables">
+            <EntityTypeMapping TypeName="ByteBridgeDbModel.RequestTable">
+              <MappingFragment StoreEntitySet="RequestTable">
+                <ScalarProperty Name="ExpectedDate" ColumnName="ExpectedDate" />
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+                <ScalarProperty Name="RequestDetails" ColumnName="RequestDetails" />
+                <ScalarProperty Name="AcceptedTypeID" ColumnName="AcceptedTypeID" />
+                <ScalarProperty Name="RequestByID" ColumnName="RequestByID" />
+                <ScalarProperty Name="AcceptedID" ColumnName="AcceptedID" />
+                <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+                <ScalarProperty Name="RequiredBloodGroupID" ColumnName="RequiredBloodGroupID" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

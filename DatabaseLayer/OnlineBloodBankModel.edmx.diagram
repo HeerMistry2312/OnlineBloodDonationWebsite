@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="ByteBridgeDbModel.DonorTable" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.GenderTable" Width="1.5" PointX="5.75" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.HospitalTable" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ByteBridgeDbModel.RequestTable" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.RequestTypeTAble" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.SeekerTable" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockTable_BloodBankTable1" ManuallyRouted="false" />
@@ -24,7 +23,6 @@
         <AssociationConnector Association="ByteBridgeDbModel.FK_HospitalTable_CityTable" ManuallyRouted="false" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_SeekerTable_CityTable" ManuallyRouted="false" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_SeekerTable_GenderTable" ManuallyRouted="false" />
-        <AssociationConnector Association="ByteBridgeDbModel.FK_RequestTable_RequestTypeTAble" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.AccountStatusTable" Width="1.5" PointX="8.75" PointY="10.75" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.UserTable" Width="1.5" PointX="11.125" PointY="11.375" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.UserTypeTable" Width="1.5" PointX="0.75" PointY="0.75" />
@@ -36,12 +34,18 @@
         <AssociationConnector Association="ByteBridgeDbModel.FK_UserTable_UserTypeTable" />
         <AssociationConnector Association="ByteBridgeDbModel.FK__DonorTabl__Gende__01142BA1" />
         <EntityTypeShape EntityType="ByteBridgeDbModel.BloodBankStockDetailTable" Width="1.5" PointX="11.25" PointY="7.125" />
-        <EntityTypeShape EntityType="ByteBridgeDbModel.CampaignTable" Width="1.5" PointX="3.5" PointY="0.625" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.CampaignTable" Width="2" PointX="3.625" PointY="0.5" />
         <AssociationConnector Association="ByteBridgeDbModel.FK__BloodBank__Campa__09A971A2" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodBankStockTable" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_BloodGroupsTable" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_BloodBankStockDetailTable_DonorTable" />
         <AssociationConnector Association="ByteBridgeDbModel.FK_CampaignTable_BloodBankTable" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.AcceptedTypeTable" Width="1.5" PointX="11.75" PointY="16.125" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.RequestStatusTable" Width="1.5" PointX="11.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ByteBridgeDbModel.RequestTable" Width="1.5" PointX="14" PointY="7.875" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__RequestTa__Accep__0D7A0286" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK__RequestTa__Reque__10566F31" />
+        <AssociationConnector Association="ByteBridgeDbModel.FK_RequestTable_RequestTypeTAble" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -112,6 +112,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\CampaignPhoto\Default.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Template\css\animate.css" />
     <Content Include="Content\Template\css\bootstrap-rtl.min.css" />
@@ -236,6 +237,7 @@
     <Compile Include="Controllers\BloodGroupsController.cs" />
     <Compile Include="Controllers\CityTablesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\FinderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RequestTypeController.cs" />
@@ -248,9 +250,13 @@
     <Compile Include="Models\BloodBankMV.cs" />
     <Compile Include="Models\BloodBankStockMV.cs" />
     <Compile Include="Models\BloodGroupsMV.cs" />
+    <Compile Include="Models\CampaignMV.cs" />
     <Compile Include="Models\DonorMV.cs" />
+    <Compile Include="Models\FinderMV.cs" />
+    <Compile Include="Models\FinderSearchResultMV.cs" />
     <Compile Include="Models\HospitalMV.cs" />
     <Compile Include="Models\RegistrationMV.cs" />
+    <Compile Include="Models\RequestMV.cs" />
     <Compile Include="Models\RequestTypeMV.cs" />
     <Compile Include="Models\SeekerMV.cs" />
     <Compile Include="Models\UserMV.cs" />
@@ -332,6 +338,12 @@
     <Content Include="Views\Dashboard\BloodBank.cshtml" />
     <Content Include="Views\User\EditUserProfile.cshtml" />
     <Content Include="Views\BloodBank\BloodBankStock.cshtml" />
+    <Content Include="Views\BloodBank\NewCampaign.cshtml" />
+    <Content Include="Views\BloodBank\AllCampaigns.cshtml" />
+    <Content Include="Views\Finder\FinderDonors.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Finder\RequestForBlood.cshtml" />
+    <Content Include="Views\Finder\ShowAllRequests.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

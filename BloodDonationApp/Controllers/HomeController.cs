@@ -206,5 +206,9 @@ namespace BloodDonationApp.Controllers
             ClearSession();
             return RedirectToAction("MainHome");
         }
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
     }
 }

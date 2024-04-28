@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptedTypeTable.cs">
+      <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AccountStatusTable.cs">
       <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
     </Compile>
@@ -96,6 +99,9 @@
       <DependentUpon>OnlineBloodBankModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestStatusTable.cs">
+      <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RequestTable.cs">
       <DependentUpon>OnlineBloodBankModel.tt</DependentUpon>
     </Compile>
